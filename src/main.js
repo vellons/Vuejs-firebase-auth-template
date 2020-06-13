@@ -6,6 +6,13 @@ import VueMaterial from 'vue-material'; // TODO: import only needed component, n
 import 'vue-material/dist/vue-material.min.css';
 Vue.use(VueMaterial);
 
+import VueNoty from 'vuejs-noty';
+Vue.use(VueNoty, {
+	timeout: 4000,
+	progressBar: true,
+	layout: 'topRight'
+});
+
 
 import App from './App.vue';
 let app = null;

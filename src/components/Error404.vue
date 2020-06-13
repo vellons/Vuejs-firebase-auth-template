@@ -1,6 +1,6 @@
 <template>
 	<div id="error-404-container">
-		<md-app md-waterfall md-mode="fixed" md-theme="default">
+		<md-app md-waterfall md-mode="fixed" :md-theme="userTheme">
 			<md-app-toolbar class="md-primary" md-elevation="5">
 				<router-link class="router-link" to="/">
 					<img class="bar-logo" src="../assets/logo.png" alt="Logo"/>
@@ -20,7 +20,15 @@
 
 <script>
 	export default {
-		name: "Error404"
+		name: "Error404",
+		data: () => ({
+			userTheme: "default",
+		}),
+		mounted() {
+			if (localStorage.userTheme === "dark") {
+				this.userTheme = "dark";
+			}
+		}
 	}
 </script>
 
@@ -50,7 +58,13 @@
 
 			.logo {
 				height: 200px;
-				transform: rotate(60deg);
+				transform: rotate(50deg);
+				transition: transform .3s;
+
+				&:hover {
+					transform: rotate(0deg);
+					transition: transform 1s;
+				}
 			}
 		}
 	}

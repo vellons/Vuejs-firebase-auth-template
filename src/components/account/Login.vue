@@ -30,7 +30,8 @@
 		},
 		mounted() {
 			FirebaseAuth.onAuthStateChanged((user) => {
-				if (user && this.email === "") this.$router.replace('/account'); // User already logged
+				if (user && this.email === "") this.$router.replace('/account').catch(() => {
+				}); // User already logged
 			});
 		},
 		methods: {

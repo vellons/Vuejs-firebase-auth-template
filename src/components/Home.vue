@@ -10,6 +10,8 @@
 			<md-button class="md-raised" disabled>Disabled</md-button>
 		</div>
 
+		<div>You can change <b>theme color</b> in the account page</div>
+
 		<div class="section">
 			<md-field>
 				<label>Marvel Movies</label>
@@ -26,6 +28,11 @@
 				<strong>Selected movies:</strong>
 				{{ selectedMovies }}
 			</div>
+		</div>
+
+		<div class="section">
+			<md-button class="md-raised md-primary" @click="showSuccess">Success noty</md-button>
+			<md-button class="md-raised md-accent" @click="showError">Error noty</md-button>
 		</div>
 
 		<div class="section">
@@ -164,6 +171,17 @@
 				set(val) {
 					this.$material.locale.dateFormat = val;
 				}
+			}
+		},
+		methods: {
+			showSuccess: function () {
+				this.$noty.success("Succes!");
+			},
+			showError: function () {
+				this.$noty.error("Error :(", {
+					killer: true,
+					timeout: 1500,
+				});
 			}
 		}
 	}

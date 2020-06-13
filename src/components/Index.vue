@@ -1,6 +1,6 @@
 <template>
 	<div id="vue-js-index-container">
-		<md-app md-waterfall md-mode="fixed" md-theme="default">
+		<md-app md-waterfall md-mode="fixed" :md-theme="userTheme">
 			<md-app-toolbar class="md-primary" md-elevation="5">
 				<md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
 					<md-icon>menu</md-icon>
@@ -45,6 +45,7 @@
 		name: 'Index',
 		data: () => ({
 			menuVisible: false,
+			userTheme: "default",
 			menuTab: [
 				{
 					icon: 'home',
@@ -61,7 +62,7 @@
 				{
 					icon: 'map',
 					title: 'Error 404 ;)',
-					link: '/ciao-ciao',
+					link: '/ciao-ciao-error-404',
 					auth: true,
 				},
 				{
@@ -79,11 +80,17 @@
 			]
 		}),
 		mounted() {
-			this.$router.replace('/home');
+			if (localStorage.userTheme === "dark") {
+				this.userTheme = "dark";
+			}
+			if (this.$route.fullPath === '/') {
+				this.$router.replace('/home').catch(() => {
+				});
+			}
 		},
 		methods: {
 			toggleMenu() {
-				this.menuVisible = !this.menuVisible
+				this.menuVisible = !this.menuVisible;
 			}
 		}
 	}
@@ -114,11 +121,13 @@
 				&:hover {
 					.md-icon {
 						color: $accent;
+						opacity: 0.8;
 					}
 
 					.md-list-item-text {
 						color: $accent;
 						transition: color .4s cubic-bezier(.4,0,.2,1);
+						opacity: 0.8;
 					}
 				}
 
@@ -134,7 +143,6 @@
 
 				.md-list-item-text {
 					font-weight: bold;
-					color: $labelColor;
 				}
 			}
 		}
